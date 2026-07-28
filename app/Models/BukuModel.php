@@ -15,6 +15,7 @@ class BukuModel extends Model
     protected $allowedFields = [
         'kode_buku',
         'judul',
+        'kategori',
         'pengarang',
         'penerbit',
         'tahun_terbit',
@@ -34,6 +35,7 @@ class BukuModel extends Model
     protected $validationRules = [
         'kode_buku' => 'required|min_length[3]|max_length[20]|is_unique[buku.kode_buku,id,{id}]',
         'judul'     => 'required|min_length[3]|max_length[150]',
+        'kategori'  => 'permit_empty|max_length[50]',
         'pengarang' => 'required|max_length[100]',
         'penerbit'  => 'permit_empty|max_length[100]',
         'tahun_terbit' => 'permit_empty|numeric',
@@ -105,6 +107,19 @@ class BukuModel extends Model
     {
         return $this->where('anggota_id', $idAnggota)
             ->where('status', 'dipinjam')
+            ->findAll();
+    }
+
+    /**
+     * Ambil daftar kategori unik yang sudah pernah diisi, untuk dropdown filter.
+     */
+    public function getKategoriList(): array
+    {
+        return $this->select('kategori')
+            ->where('kategori IS NOT NULL')
+            ->where('kategori !=', '')
+            ->distinct()
+            ->orderBy('kategori', 'ASC')
             ->findAll();
     }
 }

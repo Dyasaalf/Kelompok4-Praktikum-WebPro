@@ -14,22 +14,30 @@ class Dashboard extends BaseController
         $this->bukuModel = new BukuModel();
     }
 
-    // Tampilkan semua buku yang terdaftar (bisa dicari)
+    // Tampilkan semua buku yang terdaftar (bisa dicari & difilter kategori)
     public function index()
     {
-        $keyword = $this->request->getGet('q');
+        $keyword  = $this->request->getGet('q');
+        $kategori = $this->request->getGet('kategori');
+
+        $query = $this->bukuModel;
 
         if ($keyword) {
-            $data['buku'] = $this->bukuModel->like('judul', $keyword)
+            $query = $query->groupStart()
+                ->like('judul', $keyword)
                 ->orLike('kode_buku', $keyword)
                 ->orLike('pengarang', $keyword)
-                ->orderBy('judul', 'ASC')
-                ->findAll();
-        } else {
-            $data['buku'] = $this->bukuModel->orderBy('judul', 'ASC')->findAll();
+                ->groupEnd();
         }
 
-        $data['title'] = 'Daftar Buku';
+        if ($kategori) {
+            $query = $query->where('kategori', $kategori);
+        }
+
+        $data['buku']          = $query->orderBy('judul', 'ASC')->findAll();
+        $data['kategoriList']  = $this->bukuModel->getKategoriList();
+        $data['kategoriAktif'] = $kategori;
+        $data['title']         = 'Daftar Buku';
 
         return view('customer/dashboard', $data);
     }

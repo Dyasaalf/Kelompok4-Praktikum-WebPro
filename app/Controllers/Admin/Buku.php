@@ -14,21 +14,30 @@ class Buku extends BaseController
         $this->bukuModel = new BukuModel();
     }
 
-    // READ - Tampilkan semua data buku
+    // READ - Tampilkan semua data buku (bisa dicari & difilter berdasarkan kategori)
     public function index()
     {
-        $keyword = $this->request->getGet('q');
+        $keyword  = $this->request->getGet('q');
+        $kategori = $this->request->getGet('kategori');
+
+        $query = $this->bukuModel;
 
         if ($keyword) {
-            $data['buku'] = $this->bukuModel->like('judul', $keyword)
+            $query = $query->groupStart()
+                ->like('judul', $keyword)
                 ->orLike('kode_buku', $keyword)
                 ->orLike('pengarang', $keyword)
-                ->findAll();
-        } else {
-            $data['buku'] = $this->bukuModel->orderBy('id', 'DESC')->findAll();
+                ->groupEnd();
         }
 
-        $data['title'] = 'Data Buku';
+        if ($kategori) {
+            $query = $query->where('kategori', $kategori);
+        }
+
+        $data['buku']          = $query->orderBy('id', 'DESC')->findAll();
+        $data['kategoriList']  = $this->bukuModel->getKategoriList();
+        $data['kategoriAktif'] = $kategori;
+        $data['title']         = 'Data Buku';
 
         return view('admin/buku/index', $data);
     }
@@ -36,7 +45,8 @@ class Buku extends BaseController
     // CREATE - Form tambah buku
     public function create()
     {
-        $data['title'] = 'Tambah Buku';
+        $data['title']        = 'Tambah Buku';
+        $data['kategoriList'] = $this->bukuModel->getKategoriList();
 
         return view('admin/buku/create', $data);
     }
@@ -51,6 +61,7 @@ class Buku extends BaseController
         $this->bukuModel->save([
             'kode_buku'    => $this->request->getPost('kode_buku'),
             'judul'        => $this->request->getPost('judul'),
+            'kategori'     => $this->request->getPost('kategori'),
             'pengarang'    => $this->request->getPost('pengarang'),
             'penerbit'     => $this->request->getPost('penerbit'),
             'tahun_terbit' => $this->request->getPost('tahun_terbit'),
@@ -69,8 +80,9 @@ class Buku extends BaseController
             return redirect()->to('admin/buku')->with('error', 'Data buku tidak ditemukan.');
         }
 
-        $data['title'] = 'Edit Buku';
-        $data['buku']  = $buku;
+        $data['title']        = 'Edit Buku';
+        $data['buku']         = $buku;
+        $data['kategoriList'] = $this->bukuModel->getKategoriList();
 
         return view('admin/buku/edit', $data);
     }
@@ -94,6 +106,7 @@ class Buku extends BaseController
         $this->bukuModel->update($id, [
             'kode_buku'    => $this->request->getPost('kode_buku'),
             'judul'        => $this->request->getPost('judul'),
+            'kategori'     => $this->request->getPost('kategori'),
             'pengarang'    => $this->request->getPost('pengarang'),
             'penerbit'     => $this->request->getPost('penerbit'),
             'tahun_terbit' => $this->request->getPost('tahun_terbit'),

@@ -30,6 +30,16 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Kategori</label>
+                <input type="text" name="kategori" class="form-control" value="<?= old('kategori') ?>" list="kategoriOptions" placeholder="Contoh: Fiksi, Sains, Sejarah">
+                <datalist id="kategoriOptions">
+                    <?php foreach ($kategoriList ?? [] as $k): ?>
+                        <option value="<?= esc($k['kategori']) ?>">
+                    <?php endforeach; ?>
+                </datalist>
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label">Pengarang</label>
                 <input type="text" name="pengarang" class="form-control" value="<?= old('pengarang') ?>" required>
             </div>

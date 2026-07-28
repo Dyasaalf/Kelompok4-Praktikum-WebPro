@@ -11,9 +11,21 @@
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <form method="get" action="<?= base_url('admin/buku') ?>" class="mb-3">
-            <div class="input-group">
+        <form method="get" action="<?= base_url('admin/buku') ?>" class="row g-2 mb-3">
+            <div class="col-md-7">
                 <input type="text" name="q" class="form-control" placeholder="Cari judul, kode, atau pengarang..." value="<?= esc($_GET['q'] ?? '') ?>">
+            </div>
+            <div class="col-md-3">
+                <select name="kategori" class="form-select" onchange="this.form.submit()">
+                    <option value="">Semua Kategori</option>
+                    <?php foreach ($kategoriList ?? [] as $k): ?>
+                        <option value="<?= esc($k['kategori']) ?>" <?= ($kategoriAktif ?? '') === $k['kategori'] ? 'selected' : '' ?>>
+                            <?= esc($k['kategori']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-md-2 d-grid">
                 <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i> Cari</button>
             </div>
         </form>
@@ -25,6 +37,7 @@
                         <th>#</th>
                         <th>Kode</th>
                         <th>Judul</th>
+                        <th>Kategori</th>
                         <th>Pengarang</th>
                         <th>Penerbit</th>
                         <th>Tahun</th>
@@ -36,7 +49,7 @@
                 <tbody>
                     <?php if (empty($buku)): ?>
                         <tr>
-                            <td colspan="9" class="text-center text-muted">Belum ada data buku.</td>
+                            <td colspan="10" class="text-center text-muted">Belum ada data buku.</td>
                         </tr>
                     <?php else: ?>
                         <?php $no = 1; ?>
@@ -45,6 +58,13 @@
                                 <td><?= $no++ ?></td>
                                 <td><?= esc($b['kode_buku']) ?></td>
                                 <td><?= esc($b['judul']) ?></td>
+                                <td>
+                                    <?php if (! empty($b['kategori'])): ?>
+                                        <span class="badge bg-info text-dark"><?= esc($b['kategori']) ?></span>
+                                    <?php else: ?>
+                                        <span class="text-muted">-</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= esc($b['pengarang']) ?></td>
                                 <td><?= esc($b['penerbit']) ?></td>
                                 <td><?= esc($b['tahun_terbit']) ?></td>
