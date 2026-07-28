@@ -6,8 +6,20 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Controllers\\Admin\\Anggota' => $baseDir . '/app/Controllers/Admin/Anggota.php',
+    'App\\Controllers\\Admin\\Buku' => $baseDir . '/app/Controllers/Admin/Buku.php',
+    'App\\Controllers\\Admin\\Dashboard' => $baseDir . '/app/Controllers/Admin/Dashboard.php',
+    'App\\Controllers\\Auth\\AdminAuth' => $baseDir . '/app/Controllers/Auth/AdminAuth.php',
+    'App\\Controllers\\Auth\\AnggotaAuth' => $baseDir . '/app/Controllers/Auth/AnggotaAuth.php',
     'App\\Controllers\\BaseController' => $baseDir . '/app/Controllers/BaseController.php',
+    'App\\Controllers\\Customer\\Dashboard' => $baseDir . '/app/Controllers/Customer/Dashboard.php',
+    'App\\Controllers\\Customer\\Pinjaman' => $baseDir . '/app/Controllers/Customer/Pinjaman.php',
     'App\\Controllers\\Home' => $baseDir . '/app/Controllers/Home.php',
+    'App\\Filters\\AdminFilter' => $baseDir . '/app/Filters/AdminFilter.php',
+    'App\\Filters\\AnggotaFilter' => $baseDir . '/app/Filters/AnggotaFilter.php',
+    'App\\Models\\AdminModel' => $baseDir . '/app/Models/AdminModel.php',
+    'App\\Models\\AnggotaModel' => $baseDir . '/app/Models/AnggotaModel.php',
+    'App\\Models\\BukuModel' => $baseDir . '/app/Models/BukuModel.php',
     'CodeIgniter\\API\\ApiException' => $vendorDir . '/codeigniter4/framework/system/API/ApiException.php',
     'CodeIgniter\\API\\BaseTransformer' => $vendorDir . '/codeigniter4/framework/system/API/BaseTransformer.php',
     'CodeIgniter\\API\\ResponseTrait' => $vendorDir . '/codeigniter4/framework/system/API/ResponseTrait.php',

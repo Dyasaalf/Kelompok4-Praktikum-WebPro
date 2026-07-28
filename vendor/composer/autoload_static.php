@@ -100,8 +100,20 @@ class ComposerStaticInitf5cce40800fa5dae1504b9364f585e6a
     );
 
     public static $classMap = array (
+        'App\\Controllers\\Admin\\Anggota' => __DIR__ . '/../..' . '/app/Controllers/Admin/Anggota.php',
+        'App\\Controllers\\Admin\\Buku' => __DIR__ . '/../..' . '/app/Controllers/Admin/Buku.php',
+        'App\\Controllers\\Admin\\Dashboard' => __DIR__ . '/../..' . '/app/Controllers/Admin/Dashboard.php',
+        'App\\Controllers\\Auth\\AdminAuth' => __DIR__ . '/../..' . '/app/Controllers/Auth/AdminAuth.php',
+        'App\\Controllers\\Auth\\AnggotaAuth' => __DIR__ . '/../..' . '/app/Controllers/Auth/AnggotaAuth.php',
         'App\\Controllers\\BaseController' => __DIR__ . '/../..' . '/app/Controllers/BaseController.php',
+        'App\\Controllers\\Customer\\Dashboard' => __DIR__ . '/../..' . '/app/Controllers/Customer/Dashboard.php',
+        'App\\Controllers\\Customer\\Pinjaman' => __DIR__ . '/../..' . '/app/Controllers/Customer/Pinjaman.php',
         'App\\Controllers\\Home' => __DIR__ . '/../..' . '/app/Controllers/Home.php',
+        'App\\Filters\\AdminFilter' => __DIR__ . '/../..' . '/app/Filters/AdminFilter.php',
+        'App\\Filters\\AnggotaFilter' => __DIR__ . '/../..' . '/app/Filters/AnggotaFilter.php',
+        'App\\Models\\AdminModel' => __DIR__ . '/../..' . '/app/Models/AdminModel.php',
+        'App\\Models\\AnggotaModel' => __DIR__ . '/../..' . '/app/Models/AnggotaModel.php',
+        'App\\Models\\BukuModel' => __DIR__ . '/../..' . '/app/Models/BukuModel.php',
         'CodeIgniter\\API\\ApiException' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/ApiException.php',
         'CodeIgniter\\API\\BaseTransformer' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/BaseTransformer.php',
         'CodeIgniter\\API\\ResponseTrait' => __DIR__ . '/..' . '/codeigniter4/framework/system/API/ResponseTrait.php',
