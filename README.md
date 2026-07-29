@@ -1,6 +1,6 @@
 LOGIN : 
 Admin  	 admin	    =          admin123.
-Anggota	 2023001 / 2023002	  anggota123.
+Anggota	 2023001 / 2023002	 = anggota123.
 
 
 # CodeIgniter 4 Application Starter
